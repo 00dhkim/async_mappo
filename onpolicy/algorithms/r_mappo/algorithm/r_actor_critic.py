@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from icecream import ic
 
 import torch
 import torch.nn as nn
@@ -31,6 +32,8 @@ class R_Actor(nn.Module):
 
         obs_shape = get_shape_from_obs_space(obs_space)
 
+        ic(obs_shape.__class__.__name__) #dohyun: OrderedDict
+        
         if 'Dict' in obs_shape.__class__.__name__:
             self._mixed_obs = True
             self.base = MIXBase(args, obs_shape, cnn_layers_params=args.cnn_layers_params)

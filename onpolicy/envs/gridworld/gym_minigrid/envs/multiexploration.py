@@ -544,6 +544,7 @@ class MultiExplorationEnv(MultiRoomEnv):
             done = True
         return obs, reward, done, self.info
 
+    #dohyun: frontier based macro action (e.i., global goal) generation
     def ft_get_short_term_goals(self, args, mode=""):
         '''
         frontier-based methods compute actions
