@@ -46,9 +46,9 @@ def rrt_goal(map, unexplored, loc):
         nav_cost = l1distance(center, loc)
         # information gain
         mat = generate_square(H, W, center, rrt_config.utility_edge_len)
-        area = mat.sum()
-        info_gain = rrt_map[mat == 1].sum()
-        info_gain /= area
+        area = mat.sum() # 사각형 영역 내 셀들의 총 수
+        info_gain = rrt_map[mat == 1].sum() # 미탐사 셀들의 수
+        info_gain /= area # 미탐사 셀들의 비율
         cluster['info_gain'] = info_gain
         cluster['nav_cost'] = nav_cost
     D = max([cluster['nav_cost'] for cluster in clusters])

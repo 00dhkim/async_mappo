@@ -27,6 +27,8 @@ class APF(object):
         elif self.dis_type == "l1":
             return abs(a-b).sum()
 
+    #dohyun: 얘만 유일하게 path를 리턴함. 다른 알고리즘은 goal만 리턴함.
+    # (근데 multiexploration.py에서는 goal=path[-1]만을 취하고, 나머지 버림 ㅠ)
     def schedule(self, map, locations, steps, agent_id, penalty, full_path=True):
         '''
         APF to schedule path for agent agent_id
@@ -45,9 +47,9 @@ class APF(object):
         vis = np.zeros((H, W), dtype=np.uint8)
         que = deque([])
         x, y = locations[agent_id]
-        vis[x, y] = 1
+        vis[x, y] = 1 #dohyun: visited map
         que.append((x, y))
-        while len(que) > 0:
+        while len(que) > 0: #dohyun: 이동가능한 모든 영역을 탐색하고 vis에 표시
             x, y = que.popleft()
             for dx, dy in steps:
                 x1 = x + dx
@@ -56,7 +58,7 @@ class APF(object):
                     vis[x1, y1] = 1
                     que.append((x1, y1))
 
-        targets = []
+        targets = [] #dohyun: frontiers
         for i in range(H):
             for j in range(W):
                 if map[i, j] == 2 and vis[i, j] == 1:
