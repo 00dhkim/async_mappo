@@ -17,6 +17,12 @@ docker run \
     -it pytorch:1.8.2-cuda11.1-python3.6-full /bin/bash
 ```
 
+```
+docker commit [실행중인 컨테이너 ID] [새로만들 이미지 NAME]
+docker save -o [파일명.tar] [만들었던 이미지 NAME]
+docker load -i [파일명.tar]
+```
+
 ## Training
 
 You could start training with by running `sh train_gridworld.sh` in directory [onpolicy/scripts](onpolicy/scripts). 
