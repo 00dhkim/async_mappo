@@ -20,6 +20,8 @@ do
       --cnn_layers_params '16,3,1,1 32,3,1,1 16,3,1,1' \
       --ifi 0.5 --max_steps 300 --grid_size ${grid_size} --local_step_num ${local_step_num} --use_random_pos \
       --agent_view_size 7 --use_merge --use_merge_plan --use_eval \
-      --astar_cost_mode "normal" --wandb_name "mapping" --user_name "yang-xy20" --asynch
+      --astar_cost_mode "normal" --wandb_name "mapping" --user_name "yang-xy20" --asynch 
 done
 
+# --use-render
+# --save_gifs

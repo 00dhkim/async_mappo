@@ -20,3 +20,6 @@ do
       --astar_cost_mode utility --grid_goal --goal_grid_size 5 --cnn_trans_layer 1,3,1,1 \
       --use_stack --grid_size 25 --use_recurrent_policy --use_stack --use_global_goal --use_overlap_penalty --use_eval --wandb_name "mapping" --user_name "yang-xy20" --asynch & 
 done
+
+# --use-render
+# --save_gifs
