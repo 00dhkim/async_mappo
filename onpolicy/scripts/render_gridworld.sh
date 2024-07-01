@@ -10,7 +10,7 @@ seed_max=3
 echo "env is ${env}"
 for seed in `seq ${seed_max}`
 do
-    CUDA_VISIBLE_DEVICES=0,1,2,3 python render/render_gridworld.py\
+    CUDA_VISIBLE_DEVICES=0,1,2,3 python3 render/render_gridworld.py\
       --env_name ${env} --algorithm_name ${algo} --experiment_name ${exp} --scenario_name ${scenario} \
       --num_agents ${num_agents} --num_obstacles ${num_obstacles} \
       --seed ${seed} --n_training_threads 1 --n_rollout_threads 1 --render_episodes 100 \

@@ -4,6 +4,19 @@ This is a PyTorch implementation of the paper: [Asynchronous Multi-Agent Reinfor
 
 Project Website: https://sites.google.com/view/ace-aamas
 
+## docker
+
+```
+docker build -t pytorch:1.8.2-cuda11.1-python3.6-full .
+docker run \
+    --name async_mappo \
+    -v ~/workspace:/workspace \
+    --gpus all \
+    --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    -e DISPLAY=unix$DISPLAY \
+    -it pytorch:1.8.2-cuda11.1-python3.6-full /bin/bash
+```
+
 ## Training
 
 You could start training with by running `sh train_gridworld.sh` in directory [onpolicy/scripts](onpolicy/scripts). 
