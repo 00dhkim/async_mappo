@@ -48,13 +48,13 @@ class MIXBase(nn.Module):
                 raise NotImplementedError
 
         if len(self.cnn_keys) > 0:
-            self.cnn = self._build_cnn_model(obs_shape, cnn_layers_params, self.hidden_size, self._use_orthogonal, self._activation_id, cnn_trans_layer = args.cnn_trans_layer)
+            self.cnn = self._build_cnn_model(obs_shape, cnn_layers_params, self.hidden_size, self._use_orthogonal, self._activation_id, cnn_trans_layer = args.cnn_trans_layer) #dohyun: local feature extractor
         if len(self.embed_keys) > 0:
             self.embed = self._build_embed_model(obs_shape)
         if len(self.mlp_keys) > 0:
             self.mlp = self._build_mlp_model(obs_shape, self.hidden_size, self._use_orthogonal, self._activation_id)
         if self.use_stack:
-            self.agent_invariant = self._build_invariant_model()
+            self.agent_invariant = self._build_invariant_model() #dohyun: attn-based relation encoder
 
     def forward(self, x):
         out_x = x
@@ -63,13 +63,13 @@ class MIXBase(nn.Module):
             if self.use_stack:
                 cnn_x = []
                 for i in range(self.num_agents):
-                    cnn_x.append(self.cnn(cnn_input[:, 0+self.split_channel*i:self.split_channel+self.split_channel*i]))
+                    cnn_x.append(self.cnn(cnn_input[:, 0+self.split_channel*i:self.split_channel+self.split_channel*i])) #dohyun: local feature extractor
                 out_x = torch.cat(cnn_x, dim=1)
                 channels = out_x.shape[1] // self.num_agents
                 actor = rearrange(out_x[:, 0:channels], 'b c h w -> b (h w) c')
                 others = [rearrange(out_x[:, i*channels:(i+1)*channels], 'b c h w ->  b (h w) c') for i in range(1, self.num_agents)]
                 out_x = [actor, others]
-                out_x = self.agent_invariant(out_x)
+                out_x = self.agent_invariant(out_x) #dohyun: attn-based relation encoder
             else:
                 out_x = self.cnn(cnn_input)
             

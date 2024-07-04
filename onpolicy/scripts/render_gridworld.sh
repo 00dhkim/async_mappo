@@ -22,5 +22,5 @@ do
       --use_wandb false
 done
 
-# --use-render
+# --use_render
 # --save_gifs

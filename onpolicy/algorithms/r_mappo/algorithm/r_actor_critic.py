@@ -36,7 +36,7 @@ class R_Actor(nn.Module):
         
         if 'Dict' in obs_shape.__class__.__name__:
             self._mixed_obs = True
-            self.base = MIXBase(args, obs_shape, cnn_layers_params=args.cnn_layers_params)
+            self.base = MIXBase(args, obs_shape, cnn_layers_params=args.cnn_layers_params) #dohyun: local feature extractor + attention-based relation encoder
         else:
             self._mixed_obs = False
             self.base = CNNBase(args, obs_shape) if len(obs_shape)==3 else MLPBase(args, obs_shape, use_attn_internal=args.use_attn_internal, use_cat_self=True)
@@ -77,7 +77,7 @@ class R_Actor(nn.Module):
             else:
                 actor_features, rnn_states = self.rnn(actor_features, rnn_states, masks)
 
-        actions, action_log_probs = self.act(actor_features, available_actions, deterministic)
+        actions, action_log_probs = self.act(actor_features, available_actions, deterministic) #dohyun: action decoder
         
         return actions, action_log_probs, rnn_states
 

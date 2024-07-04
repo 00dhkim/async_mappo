@@ -2,6 +2,7 @@
 from .distributions import Bernoulli, Categorical, DiagGaussian
 import math
 import numpy as np
+from icecream import ic
 
 import torch
 import torch.nn as nn
@@ -18,6 +19,7 @@ class ACTLayer(nn.Module):
         self.mixed_action = False
         self.grid_goal = False
 
+        ic(action_space.__class__.__name__) #dohyun: MultiDiscrete
         if args is not None and args.grid_goal:
             self.grid_goal = True
             self.to_input = Rearrange('b c h w -> b c (h w)', c = 1, h = args.goal_grid_size, w = args.goal_grid_size)

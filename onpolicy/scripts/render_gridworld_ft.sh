@@ -6,7 +6,7 @@ grid_size=25
 num_obstacles=0
 local_step_num=1
 seed_max=3
-algo='ft_rrt'
+algo='ft_apf'
 
 echo "env is ${env}"
 for seed in `seq ${seed_max}`
@@ -21,8 +21,8 @@ do
       --ifi 0.5 --max_steps 300 --grid_size ${grid_size} --local_step_num ${local_step_num} --use_random_pos \
       --agent_view_size 7 --use_merge --use_merge_plan --use_eval \
       --astar_cost_mode "normal" --wandb_name "mapping" --user_name "yang-xy20" --asynch \
-      --use_wandb false
+      --use_wandb false --use_render
 done
 
-# --use-render
+# --use_render
 # --save_gifs
